@@ -22,8 +22,12 @@ class DefaultController extends Controller
      */
     public function testImportAction(MgMovies $mgMovies)
     {
+        $movies = $mgMovies->getData();
+        dump($movies);
         return $this->render(
-            'default/_empty.html.twig'
+            'default/homepage.html.twig',[
+                'movies' => $movies
+            ]
         );
     }
 
