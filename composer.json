@@ -5,14 +5,20 @@
         "php": "^7.0.8",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "guzzlehttp/guzzle": "^6.3",
+        "kevinrob/guzzle-cache-middleware": "^3.2",
         "symfony/console": "*",
         "symfony/debug": "*",
         "symfony/flex": "^1.1",
         "symfony/framework-bundle": "*",
+        "symfony/orm-pack": "^1.0",
+        "symfony/twig-bundle": "*",
         "symfony/yaml": "*"
     },
     "require-dev": {
+        "symfony/debug-bundle": "*",
         "symfony/dotenv": "*",
+        "symfony/profiler-pack": "^1.0",
         "symfony/var-dumper": "*"
     },
     "config": {
