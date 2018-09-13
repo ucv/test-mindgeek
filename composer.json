@@ -5,14 +5,25 @@
         "php": "^7.0.8",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "guzzlehttp/guzzle": "^6.3",
+        "kevinrob/guzzle-cache-middleware": "^3.2",
+        "knplabs/knp-paginator-bundle": "^2.8",
+        "liip/imagine-bundle": "^2.1",
         "symfony/console": "*",
         "symfony/debug": "*",
+        "symfony/dotenv": "*",
         "symfony/flex": "^1.1",
         "symfony/framework-bundle": "*",
+        "symfony/orm-pack": "^1.0",
+        "symfony/templating": "*",
+        "symfony/translation": "*",
+        "symfony/twig-bundle": "*",
+        "symfony/webpack-encore-pack": "^1.0",
         "symfony/yaml": "*"
     },
     "require-dev": {
-        "symfony/dotenv": "*",
+        "symfony/debug-bundle": "*",
+        "symfony/profiler-pack": "^1.0",
         "symfony/var-dumper": "*"
     },
     "config": {

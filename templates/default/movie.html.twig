@@ -1,0 +1,151 @@
+{% extends 'default/layout.html.twig' %}
+
+{% block title %}Empty website{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card mt-4">
+                    <div class="slick-carousel">
+                        {% for image in movie.cardImages %}
+                            <div class="slick-image" style="background-image:url('{{ path('get-image',{url:image.url}) }}');"></div>
+                        {% endfor %}
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">{{ movie.headline }}(<span>{{ movie.year }}</span>) <strong>{{ movie.cert }}</strong></h3>
+                        {% include 'default/blocks/_rating.html.twig' %}
+                        {% if movie.synopsis is defined %}
+                            <p class="card-text">{{ movie.synopsis|replace({'\n': '<br>'})|raw }}</p>
+                        {% endif %}
+                        {% if movie.skyGoUrl is defined %}
+                            <p class="float-left"><a href="{{ movie.skyGoUrl }}">View here</a> </p>
+                        {% endif %}
+                        {% if movie.url is defined %}
+                            <p class="float-right"><a href="{{ movie.url }}">Review source</a> </p>
+                        {% endif %}
+                    </div>
+                </div>
+                <!-- /.card -->
+                {% if movie.body is defined %}
+                <div class="card card-outline-secondary my-4">
+                    <div class="card-header">
+                        <h3>Details</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{ movie.body|replace({'\n': '<br>'})|raw }}</p>
+                    </div>
+                </div>
+                {% endif %}
+                <!-- /.card -->
+                {% if movie.keyArtImages is defined %}
+                <div class="card card-outline-secondary my-4">
+                    <div class="card-header">
+                        <h3>Key art images</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            {% for keyArtImage in movie.keyArtImages %}
+                                <div class="col-md-4">
+                                    <img class="img-fluid" src="{{ path('get-image',{url:keyArtImage.url}) }}">
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card -->
+                {% endif %}
+
+                <div class="card card-outline-secondary my-4">
+                    <div class="card-header">
+                        {{ movie.class }} details <span class="float-right" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="{{ movie.id }}">{id}</span>
+                    </div>
+                    <div class="card-body">
+                        {% if movie.cast is defined and movie.cast|length %}
+                            <h6>Cast</h6>
+                            {% for cast in movie.cast %}
+                                <p>{{ cast.name }}</p>
+                            {% endfor %}
+                            <hr>
+                        {% endif %}
+                        {% if movie.directors is defined and movie.directors|length %}
+                            <h6>Directors</h6>
+                            {% for director in movie.directors %}
+                                <p>{{ director.name }}</p>
+                            {% endfor %}
+                        <hr>
+                        {% endif %}
+                        <h6>Details</h6>
+                        {% if movie.duration is defined %}
+                            <p>Duration: {{ movie.duration/60 }} min.</p>
+                        {% endif %}
+                        {% if movie.genres is defined and movie.genres|length %}
+                            <p>Genres: {% for genre in movie.genres %}{{ genre }}{% if loop.last %}.{% else %}, {% endif %} {% endfor %}</p>
+                        {% endif %}
+                        {% if movie.reviewAuthor is defined %}
+                            <p>Review Author: {{ movie.reviewAuthor }}.</p>
+                        {% endif %}
+
+                    </div>
+                </div>
+                <!-- /.card -->
+                {% if movie.videos is defined %}
+                <div class="card card-outline-secondary my-4">
+                    <div class="card-header">
+                        <h3>Videos</h3>
+                    </div>
+                    <div class="card-body">
+                        {% for video in movie.videos %}
+                            <h5>{{ video.type|capitalize ~":"~video.title }}</h5>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active show" href="#profile" role="tab" data-toggle="tab">Original</a>
+                                </li>
+                                {% if video.alternatives is defined %}
+                                    {% for alternative in video.alternatives %}
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#quality-{{ alternative.quality }}" role="tab" data-toggle="tab">{{ alternative.quality|capitalize }}</a>
+                                        </li>
+                                    {% endfor %}
+                                {% endif %}
+
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade in active show" id="profile">
+                                    <video width="100%" height="auto" poster="{% if video.thumbnailUrl is defined %}{{ path('get-image',{url:video.thumbnailUrl}) }}{% else %}{{ asset('assets/image-not-found.png') }}{% endif %}" controls>
+                                        <source src="{{ video.url }}">
+                                    </video>
+                                </div>
+                                {% if video.alternatives is defined %}
+                                    {% for alternative in video.alternatives %}
+                                        <div role="tabpanel" class="tab-pane fade" id="quality-{{ alternative.quality }}">
+                                            <video width="100%" height="auto" poster="{% if alternative.thumbnailUrl is defined %}{{ path('get-image',{url:alternative.thumbnailUrl}) }}{% else %}{{ asset('assets/image-not-found.png') }}{% endif %}" controls>
+                                                <source src="{{ video.url }}">
+                                            </video>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            {#{{ dump(video) }}#}
+                        {% endfor %}
+                    </div>
+                </div>
+                <!-- /.card -->
+                {% endif %}
+
+            </div>
+            <!-- /.col-lg-9 -->
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $('.slick-carousel').slick()
+    </script>
+{% endblock %}

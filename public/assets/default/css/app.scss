@@ -1,0 +1,24 @@
+@import "~bootstrap/scss/bootstrap";
+
+.slick-carousel{
+  height: 340px;
+  .slick-image{
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+}
+
+.navigation{
+  margin: 0 auto;
+  .pagination{
+    span{
+      padding: 5px;
+      margin: 10px;
+      border-radius: 200px 200px 200px 200px;
+      -moz-border-radius: 200px 200px 200px 200px;
+      -webkit-border-radius: 200px 200px 200px 200px;
+      border: 1px solid #000000;
+    }
+  }
+}
