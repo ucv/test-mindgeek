@@ -70,8 +70,6 @@ class DefaultController extends Controller
             throw new NotFoundHttpException('This movie is not available');
         }
 
-        dump($movie);
-
         return $this->render(
             'default/movie.html.twig',[
                 'movie' => $movie
