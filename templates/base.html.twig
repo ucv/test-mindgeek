@@ -6,7 +6,10 @@
 </head>
 <body>
     <div id="content">
+        {% include 'default/blocks/_header.html.twig' %}
         {% block body %}{% endblock %}
+        {% include 'default/blocks/_footer.html.twig' %}
+
     </div>
     {% block javascripts %}{% endblock %}
 </body>

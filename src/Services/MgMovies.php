@@ -19,7 +19,7 @@ use Kevinrob\GuzzleCache\Strategy\GreedyCacheStrategy;
 class MgMovies
 {
     const URL = 'https://mgtechtest.blob.core.windows.net/files/showcase.json';
-    const CACHE_LIFETIME = 1800; // the TTL in seconds 30 min
+    const CACHE_LIFETIME = 18000; // the TTL in seconds 30 min
 
     private $client;
     private $cacheDir;
@@ -48,6 +48,14 @@ class MgMovies
         return $this->client;
     }
 
+    public function isValidUrl($url){
+        $res = $this->getClient()->request('GET', $url, [
+            'http_errors' => false,
+            'connect_timeout' => 1,
+        ]);
+        return $res->getStatusCode() <= 400;
+    }
+
     /**
      * @param $url
      * @return mixed|\Psr\Http\Message\ResponseInterface
@@ -57,7 +65,6 @@ class MgMovies
         $res = $this->getClient()->request('GET', $url, [
             'http_errors' => false
         ]);
-
         return $res;
     }
 
