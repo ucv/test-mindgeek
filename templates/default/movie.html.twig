@@ -85,6 +85,12 @@
                         {% if movie.reviewAuthor is defined %}
                             <p>Review Author: {{ movie.reviewAuthor }}.</p>
                         {% endif %}
+                        {% if movie.quote is defined %}
+                            <p>Quote: {{ movie.quote }}.</p>
+                        {% endif %}
+                        {% if movie.lastUpdated is defined %}
+                            <p>Last Updated: {{ movie.lastUpdated }}.</p>
+                        {% endif %}
 
                     </div>
                 </div>

@@ -59,13 +59,22 @@ class DefaultController extends Controller
      */
     public function viewMovieAction($id,$slug = ''){
         $movies = $this->mgMovies->getData();
-        if(!array_key_exists($id, $movies)){
+        $movie = null;
+        foreach ($movies as $movie){
+            if($movie['id'] == $id){
+                $movie = $movie;
+                break;
+            }
+        }
+        if(!$movie){
             throw new NotFoundHttpException('This movie is not available');
         }
 
+        dump($movie);
+
         return $this->render(
             'default/movie.html.twig',[
-                'movie' => $movies[$id]
+                'movie' => $movie
             ]
         );
     }
