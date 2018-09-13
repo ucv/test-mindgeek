@@ -2,7 +2,7 @@
 
 $point webserver to /public folder
 ```
-$ composer install
+$ composer install --no-dev --optimize-autoloader
 $ yarn install
 & yarn build
 ```
