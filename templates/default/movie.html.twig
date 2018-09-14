@@ -7,11 +7,13 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card mt-4">
-                    <div class="slick-carousel">
-                        {% for image in movie.cardImages %}
-                            <div class="slick-image" style="background-image:url('{{ path('get-image',{url:image.url}) }}');"></div>
-                        {% endfor %}
-                    </div>
+                    {% if movie.cardImages is defined %}
+                        <div class="slick-carousel">
+                            {% for image in movie.cardImages %}
+                                <div class="slick-image" style="background-image:url('{{ path('get-image',{url:image.url}) }}');"></div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                     <div class="card-body">
                         <h3 class="card-title">{{ movie.headline }}(<span>{{ movie.year }}</span>) <strong>{{ movie.cert }}</strong></h3>
                         {% include 'default/blocks/_rating.html.twig' %}

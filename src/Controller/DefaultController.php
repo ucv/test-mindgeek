@@ -27,7 +27,6 @@ class DefaultController extends Controller
     {
         $this->mgMovies = $mgMovies;
         $this->paginator = $paginator;
-
     }
 
     /**
@@ -59,16 +58,12 @@ class DefaultController extends Controller
      */
     public function viewMovieAction($id,$slug = ''){
         $movies = $this->mgMovies->getData();
-        $movie = null;
-        foreach ($movies as $movie){
-            if($movie['id'] == $id){
-                $movie = $movie;
-                break;
-            }
-        }
-        if(!$movie){
+        $array_search = array_search($id, array_column($movies, 'id'));
+
+        if($array_search === false){
             throw new NotFoundHttpException('This movie is not available');
         }
+        $movie = $movies[$array_search];
 
         return $this->render(
             'default/movie.html.twig',[
